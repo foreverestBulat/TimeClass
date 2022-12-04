@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace TimeClass
 {
     public class Time
@@ -59,7 +52,7 @@ namespace TimeClass
             Second = time[2];
         }
 
-        public int[] CellConvertGettingTime(int h, int m, int s)
+        public static int[] CellConvertGettingTime(int h, int m, int s)
         {
             int[] time = new int[3] { h, m, s };
             ConvertGettingTime(time);
@@ -99,12 +92,12 @@ namespace TimeClass
         public static Time operator - (Time t1, Time t2)
         {
             if (t1 < t2) throw new ArgumentException("Нельзя вычитать большее время из меньшего");
-            return new Time(t1.hour - t2.hour, t1.minute - t2.minute, t1.second - t2.second);
+            return new Time(0, 0, t1.hour * 60 * 60 + t1.minute * 60 + t1.second - (t2.hour * 60 * 60 + t2.minute * 60 + t2.second));
         }
 
         public static Time operator * (Time t1, int a)
         {
-            return new Time(0, 0, (t1.hour * 60 + t1.minute * 60 + t1.second) * a);
+            return new Time(0, 0, (t1.hour * 60 * 60 + t1.minute * 60 + t1.second) * a);
         }
 
         public static Time operator / (Time t1, int a)
